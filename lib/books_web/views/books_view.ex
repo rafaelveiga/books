@@ -13,4 +13,10 @@ defmodule BooksWeb.BooksView do
       }
     }
   end
+
+  def render("index.json", %{books: books}) do
+    Enum.map(books, fn book ->
+      %{:name => book.name, :pages => book.pages, :author => book.author, :id => book.id}
+    end)
+  end
 end

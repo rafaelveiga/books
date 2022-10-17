@@ -7,6 +7,12 @@ defmodule BooksWeb.BooksController do
     |> handle_response(conn)
   end
 
+  def index(conn, params) do
+    Books.index_books(params)
+    |> IO.inspect()
+    |> handle_index(conn)
+  end
+
   defp handle_response({:ok, book}, conn) do
     conn
     |> put_status(:ok)
@@ -14,4 +20,10 @@ defmodule BooksWeb.BooksController do
   end
 
   defp handle_response({:error, _changeset} = error, _conn), do: error
+
+  defp handle_index(books, conn) do
+    conn
+    |> put_status(:ok)
+    |> render("index.json", books: books)
+  end
 end
