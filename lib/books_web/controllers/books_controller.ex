@@ -7,6 +7,12 @@ defmodule BooksWeb.BooksController do
     |> handle_response(conn)
   end
 
+  def delete(conn, %{"id" => id}) do
+    id
+    |> Books.delete_book()
+    |> handle_delete(conn)
+  end
+
   def index(conn, params) do
     Books.index_books(params)
     |> IO.inspect()
@@ -25,5 +31,11 @@ defmodule BooksWeb.BooksController do
     conn
     |> put_status(:ok)
     |> render("index.json", books: books)
+  end
+
+  defp handle_delete({:ok, _book}, conn) do
+    conn
+    |> put_status(:no_content)
+    |> text("")
   end
 end
