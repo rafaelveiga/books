@@ -3,6 +3,6 @@ defmodule Books.Book.Index do
   alias Books.Repo
 
   def call(_params) do
-    Repo.all(Book)
+    {:ok, Repo.all(Book)}
   end
 end
